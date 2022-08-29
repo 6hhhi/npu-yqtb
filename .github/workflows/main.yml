@@ -5,8 +5,7 @@ name: YQTB
 # Controls when the workflow will run
 on:
   schedule:
-    # 定时任务，在每天的5点执行任务
-  	- cron: '0 15 14 * * ?'
+    - cron: '25 14 * * *'
 jobs:
   # This workflow contains a single job called "build"
   build:
