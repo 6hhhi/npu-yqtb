@@ -1,15 +1,15 @@
 import json
+import logging
 import os
 import time
-from webdriver_manager.chrome import ChromeDriverManager
-from selenium.webdriver.common.by import By
-from selenium.webdriver.chrome.service import Service
-from selenium.webdriver.chrome.options import Options
-from selenium import webdriver
-import logging
 
-username = "2020302918"
-password = "liukk/*-753952"
+from selenium import webdriver
+from selenium.webdriver.chrome.service import Service
+from webdriver_manager.chrome import ChromeDriverManager
+from selenium.webdriver.chrome.options import Options
+from selenium.webdriver.common.by import By
+
+
 env_dist = os.environ
 config = env_dist.get("config")
 logging.basicConfig(level=logging.INFO,
@@ -17,10 +17,10 @@ logging.basicConfig(level=logging.INFO,
 logger = logging.getLogger(__name__)
 
 url = r'https://yqtb.nwpu.edu.cn/wx/ry/jrsb.jsp'
-driver_path = ChromeDriverManager().install()
+#driver_path = ChromeDriverManager().install()
 chrome_options = Options()
 chrome_options.add_argument('--headless')
-service = Service(driver_path)
+service = Service((ChromeDriverManager().install()))
 
 
 def run(username: str, password: str):
@@ -41,13 +41,10 @@ def run(username: str, password: str):
     except Exception as e:
         logger.error(e)
     '''
-    #driver.find_element(By.NAME, 'submit').click()
     '''
     js = 'go_sub();document.querySelector("label.weui-cell.weui-cell_active.weui-check__label").click();save()'
     driver.execute_script(js)
     '''
-    #/ html / body / div[3] / form / div[5] / div[27]
-    #// *[ @ id = "rbxx_div"] / div[27]
     driver.find_element(By.XPATH, '//*[@id="rbxx_div"]/div[27]').click()# 点击提交填报信息
     time.sleep(5)
     #driver.find_element(By.XPATH, '//*[@id="qrxx_div"]/div[2]/div[26]/label/div[1]/i').click() #点击已核实以上数据
@@ -59,16 +56,16 @@ def run(username: str, password: str):
     logger.info(f'{username} 已完成填报')
 
 
-#def yqtb(students: list):
-def yqtb():
+def yqtb(students: list):
+#def yqtb():
     logger.info('开始执行填报...')
-#for username, password in students:
-    run(username, password)
+    for username, password in students:
+        run(username, password)
     logger.info('填报执行完毕')
 
 
 if __name__ == '__main__':
-#students = json.loads(config)
+    students = json.loads(config)
 #logger.info(f'加载的用户列表: {[username for username, _ in students]}')
-    yqtb()
+    yqtb(students)
 
