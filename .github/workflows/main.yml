@@ -28,5 +28,7 @@ jobs:
           pip install -r ./requirements.txt
 
       - name: Run script
+        env:
+          config: ${{ secrets.config }}
         run: |
           python3 main.py
