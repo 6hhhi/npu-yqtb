@@ -4,7 +4,7 @@ name: YQTB
 on:
   workflow_dispatch:
   schedule:
-    - cron: '0 13 * * *'
+    - cron: '50 12 * * *'
 jobs:
   # This workflow contains a single job called "build"
   build:
