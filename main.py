@@ -39,8 +39,8 @@ def run(username: str, password: str):
     except Exception as e:
         logger.error(e)
     '''
-    '''
-    js = 'go_sub();document.querySelector("label.weui-cell.weui-cell_active.weui-check__label").click();save()'
+
+    js = 'go_sub();document.querySelector("label.weui-cell.weui-cell_active.weui-check__label").click();savefx()'
     driver.execute_script(js)
     '''
     driver.find_element(By.XPATH, '//*[@id="rbxx_div"]/div[17]').click()  #同下
@@ -50,7 +50,7 @@ def run(username: str, password: str):
     #driver.find_element(By.XPATH, '//*[@id="qrxx_div"]/div[2]/div[26]').click()  # 点击已核实以上数据
     driver.find_element(By.XPATH, '//*[@id="save_div"]').click()  # 点击确认提交
     #driver.find_element(By.XPATH, '//*[@id="save_div"]').click()  # 点击确认提交
-
+    '''
     time.sleep(2)
     driver.close()
     logger.info(f'{username} 已完成填报')
@@ -66,5 +66,5 @@ def yqtb(students: list):
 
 if __name__ == '__main__':
     students = json.loads(config)
-    #logger.info(f'加载的用户列表: {[username for username, _ in students]}')
+    logger.info(f'加载的用户列表: {[username for username, _ in students]}')
     yqtb(students)
