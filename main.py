@@ -18,12 +18,12 @@ logger = logging.getLogger(__name__)
 url = r'https://yqtb.nwpu.edu.cn/wx/ry/jrsb.jsp'
 #driver_path = ChromeDriverManager().install()  #暂时不生效作保留
 chrome_options = Options()
-chrome_options.add_argument('--headless')  #窗口显示
+chrome_options.add_argument('--headless')  #窗口不显示
 service = Service((ChromeDriverManager().install()))
 
 def run(username: str, password: str):
-    driver = webdriver.Chrome(service=service, options=chrome_options)
-    #driver = webdriver.Chrome()
+    driver = webdriver.Chrome(service, options=chrome_options)
+    #driver = webdriver.Chrome(driver_path)
     driver.get(url)
     time.sleep(5)
     username_element = driver.find_element(By.ID, 'username')
