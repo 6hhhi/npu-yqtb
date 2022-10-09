@@ -28,6 +28,4 @@ jobs:
         env:
           config: ${{ secrets.config }}
         run: |
-          sudo cp -p ./chrome/chromedriver /usr/bin/
-          chmod -R 777 /usr/bin/chromedriver
           python3 main.py
