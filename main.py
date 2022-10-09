@@ -20,10 +20,12 @@ url = r'https://yqtb.nwpu.edu.cn/wx/ry/jrsb.jsp'
 chrome_options = Options()
 chrome_options.add_argument('--headless')  #窗口不显示
 #service = Service((ChromeDriverManager().install()))
-service = Service("/usr/bin/chromedriver");
+#service = Service("C:\Program Files\Google\Chrome\Application\chromedriver.exe");
+
+
 def run(username: str, password: str):
-    driver = webdriver.Chrome(service, options=chrome_options)
-    #driver = webdriver.Chrome(driver_path)
+    #driver = webdriver.Chrome(service, options=chrome_options)
+    driver = webdriver.Chrome('/usr/bin/chromedriver')
     driver.get(url)
     time.sleep(5)
     driver.find_element(By.XPATH, '//*[@id="vue_main"]/div[2]/div[3]/div/div[2]/div[3]/div/div/div[1]/ul/li[3]').click()
