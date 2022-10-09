@@ -5,6 +5,8 @@ import time
 from selenium import webdriver
 from selenium.webdriver.chrome.service import Service
 from webdriver_manager.chrome import ChromeDriverManager
+
+from webdriver_manager.firefox import GeckoDriverManager
 from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.common.by import By
 
@@ -16,21 +18,27 @@ logging.basicConfig(level=logging.INFO,
 logger = logging.getLogger(__name__)
 
 url = r'https://yqtb.nwpu.edu.cn/wx/ry/jrsb.jsp'
-#driver_path = ChromeDriverManager().install()  #暂时不生效作保留
+#driver_path = ChromeDriverManager().install()  #参考写法，不生效
+
+#service = Service((ChromeDriverManager().install()))
 chrome_options = Options()
-chrome_options.add_argument('--headless')  #窗口不显示
-service = Service((ChromeDriverManager().install()))
+#chrome_options.add_argument('--headless')  #窗口不显示
 
 def run(username: str, password: str):
-    driver = webdriver.Chrome(service, options=chrome_options)
-    #driver = webdriver.Chrome(driver_path)
+
+    driver = webdriver.Firefox(GeckoDriverManager().install())
+    #driver = webdriver.Chrome(service, options=chrome_options)
+    #driver = webdriver.Chrome("C:\Program Files\Google\Chrome\Application\chromedriver.exe")
     driver.get(url)
     time.sleep(5)
+    driver.find_element(By.XPATH, '//*[@id="vue_main"]/div[2]/div[3]/div/div[2]/div[3]/div/div/div[1]/ul/li[3]').click()
+    time.sleep(1)
     username_element = driver.find_element(By.ID, 'username')
     username_element.send_keys(username)
     password_element = driver.find_element(By.ID, 'password')
     password_element.send_keys(password)
-    driver.find_element(By.NAME, 'submit').click()
+    time.sleep(1)
+    driver.find_element(By.NAME, 'button').click()
     time.sleep(5)
     #driver.switch_to.window(driver.window_handles[-1])  # ? 窗口切换
     '''
